@@ -10,7 +10,7 @@ export default function Editor() {
   const [code, setCode] = useState('');
 
   return (
-    <div>
+    <div className={styles.container}>
       <Controlled
         value={code}
         onBeforeChange={(e, d, v) => setCode(v)}

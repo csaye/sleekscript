@@ -1,5 +1,12 @@
-body {
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
   margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #121e24;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,4 +17,20 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+button {
+  cursor: pointer;
+}
+
+.react-codemirror2 {
+  width: 100%;
+  margin: 5px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.CodeMirror {
+  padding: 10px;
+  height: 100%!important;
 }
