@@ -19,14 +19,20 @@ function getCode(tokens, i) {
         default: return token.value;
       }
     }
+    case 'symbol': {
+      switch (token.value) {
+        case ',': return ', ';
+        default: return token.value;
+      }
+    }
     case 'slice': {
-      const vals = token.value.split(':');
+      const vals = token.value.slice(1, -1).split(':');
       if (!vals[0] && !vals[1]) return '.split()';
       else if (!vals[1]) return `.split(${vals[0]})`;
       else return `.split(${vals[0] ? vals[0] : 0}, ${vals[1]})`;
     }
     case 'range': {
-      const vals = token.value.split('..');
+      const vals = token.value.slice(1, -1).split('..');
       const start = vals[0] ? vals[0] : 0;
       const end = vals[1] ? vals[1] : 0;
       const nums = [];
