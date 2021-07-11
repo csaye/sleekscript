@@ -3,11 +3,18 @@ function getCode(tokens, i) {
   const token = tokens[i];
   // add content based on type and value
   switch (token.type) {
-    case 'comment': return `//${token.value}`;
+    case 'comment': {
+      if (i > 0 && tokens[i - 1].type !== 'newline') {
+        return ` //${token.value}`;
+      } else return `//${token.value}`;
+    }
+    case 'operator': return ` ${token.value} `;
     case 'keyword': {
       switch (token.value) {
-        case 'and': return '&&';
-        case 'or': return '||';
+        case 'is': return ' === ';
+        case 'isnt': return ' !== ';
+        case 'and': return ' && ';
+        case 'or': return ' || ';
         case 'not': return '!';
         default: return token.value;
       }
