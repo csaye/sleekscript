@@ -1,3 +1,14 @@
+// possible tokens to match listed in order of precedence
+const possibleTokens = [
+  { type: 'comment', regex: /(?<=#).*/ },
+  { type: 'keyword', regex: /(and|or|not|if|else)(?=([^\w]|$))/ },
+  { type: 'string', regex: /"([^"\\]|\\.)*"/ },
+  { type: 'number', regex: /\d*.?\d+/ },
+  { type: 'word', regex: /[_A-Za-z]\w*/ },
+  { type: 'operator', regex: /[-+/*%?:=(){};,.<>&|!]/ },
+  { type: 'newline', regex: /\n/ }
+];
+
 // recursively retrieves tokens from given code
 function getTokens(code, tokens) {
   const matches = [];
