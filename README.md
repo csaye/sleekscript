@@ -1,8 +1,10 @@
-# Getting Started with Create React App
+# SleekScript
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A pythonic language that compiles to JavaScript.
 
 ## Available Scripts
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:
 
