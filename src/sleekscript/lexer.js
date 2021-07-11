@@ -4,6 +4,7 @@ const possibleTokens = [
   { type: 'keyword', regex: /(is|isnt|and|or|not|if|else)(?=([^\w]|$))/},
   { type: 'string', regex: /"([^"\\]|\\.)*"/ },
   { type: 'slice', regex: /(?<=\[)\w*:\w*(?=\])/ },
+  { type: 'range', regex: /(?<=\[)\w*\.\.\w*(?=\])/ },
   { type: 'number', regex: /\d*\.?\d+/ },
   { type: 'word', regex: /[_A-Za-z]\w*/ },
   { type: 'operator', regex: /(===|&&|\|\||\*\*|[-+/*%<>=]=|[-+/*%<>=])/ },

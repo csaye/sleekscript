@@ -21,19 +21,17 @@ function getCode(tokens, i) {
     }
     case 'slice': {
       const vals = token.value.split(':');
-      // array slice
-      if (i > 0 && tokens[i - 1].type === 'word') {
-        if (!vals[0] && !vals[1]) return '.split()';
-        else if (!vals[1]) return `.split(${vals[0]})`;
-        else return `.split(${vals[0] ? vals[0] : 0}, ${vals[1]})`;
-      // array range
-      } else {
-        const start = vals[0] ? vals[0] : 0;
-        const end = vals[1] ? vals[1] : 0;
-        const nums = [];
-        for (let i = start; i < end; i++) nums.push(i);
-        return `[${nums.join(', ')}]`;
-      }
+      if (!vals[0] && !vals[1]) return '.split()';
+      else if (!vals[1]) return `.split(${vals[0]})`;
+      else return `.split(${vals[0] ? vals[0] : 0}, ${vals[1]})`;
+    }
+    case 'range': {
+      const vals = token.value.split('..');
+      const start = vals[0] ? vals[0] : 0;
+      const end = vals[1] ? vals[1] : 0;
+      const nums = [];
+      for (let i = start; i < end; i++) nums.push(i);
+      return `[${nums.join(', ')}]`;
     }
     default: return token.value;
   }
