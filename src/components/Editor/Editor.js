@@ -8,14 +8,19 @@ import { compile } from '../../sleekscript/compiler.js';
 
 import styles from './Editor.module.css';
 
+const compileDelay = 0;
+
 export default function Editor() {
   const [inCode, setInCode] = useState('');
   const [outCode, setOutCode] = useState('');
 
   // compile code when updated
   useEffect(() => {
-    const compiled = compile(inCode);
-    setOutCode(compiled);
+    const timeout = setTimeout(() => {
+      const compiled = compile(inCode);
+      setOutCode(compiled);
+    }, compileDelay);
+    return () => clearTimeout(timeout);
   }, [inCode]);
 
   return (
