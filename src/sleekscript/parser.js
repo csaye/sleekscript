@@ -45,8 +45,8 @@ function getStatementType(statement) {
 
 // returns code snippet for given statement
 function getStatementCode(statement) {
-  // get node type
-  const type = getStatementType(statement);
+  // get statement type
+  const type = statement['type'];
   switch (type) {
     case 'empty': return '';
     case 'comment': return `//${statement[0].value.slice(1)}`;
@@ -58,9 +58,19 @@ function getStatementCode(statement) {
 // parses given syntax tree into javascript
 export default function parse(tree) {
   let js = '';
-  // append code for each statement
+  const vars = [];
+  // retrieve statement types
   for (const statement of tree) {
-    js += getStatementCode(statement) + '\n';
+    const type = getStatementType(statement);
+    statement['type'] = type;
+    if (type === 'assignment') {
+      const name = statement[0].value;
+      if (!vars.includes(name)) vars.push(name);
+    }
   }
+  // define variables
+  if (vars.length) js += `var ${vars.join(', ')};\n\n`
+  // append code for each statement
+  for (const statement of tree) js += getStatementCode(statement) + '\n';
   return js;
 }
