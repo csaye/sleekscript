@@ -1,54 +1,26 @@
-// returns code snippet for given token
-function getCode(tokens, i) {
-  const token = tokens[i];
-  // add content based on type and value
-  switch (token.type) {
-    case 'comment': {
-      if (i > 0 && tokens[i - 1].type !== 'newline') {
-        return ` //${token.value}`;
-      } else return `//${token.value}`;
-    }
-    case 'operator': return ` ${token.value} `;
-    case 'keyword': {
-      switch (token.value) {
-        case 'is': return ' === ';
-        case 'isnt': return ' !== ';
-        case 'and': return ' && ';
-        case 'or': return ' || ';
-        case 'not': return '!';
-        default: return token.value;
-      }
-    }
-    case 'symbol': {
-      switch (token.value) {
-        case ',': return ', ';
-        default: return token.value;
-      }
-    }
-    case 'slice': {
-      const vals = token.value.slice(1, -1).split(':');
-      if (!vals[0] && !vals[1]) return '.split()';
-      else if (!vals[1]) return `.split(${vals[0]})`;
-      else return `.split(${vals[0] ? vals[0] : 0}, ${vals[1]})`;
-    }
-    case 'range': {
-      const vals = token.value.slice(1, -1).split('..');
-      const start = vals[0] ? vals[0] : 0;
-      const end = vals[1] ? vals[1] : 0;
-      const nums = [];
-      for (let i = start; i < end; i++) nums.push(i);
-      return `[${nums.join(', ')}]`;
-    }
-    default: return token.value;
+// returns type of given statement
+function getStatementType(statement) {
+  if (!statement.length) return 'empty';
+  switch (statement[0].type) {
+    default: return 'unknown';
   }
 }
 
-// parses given tokens into javascript
-export default function parse(tokens) {
+// returns code snippet for given statement
+function getStatementCode(statement) {
+  // get node type
+  const type = getStatementType(statement);
+  switch (type) {
+    default: return `// error: ${type}`;
+  }
+}
+
+// parses given syntax tree into javascript
+export default function parse(tree) {
   let js = '';
-  // append code for each token
-  for (let i = 0; i < tokens.length; i++) {
-    js += getCode(tokens, i);
+  // append code for each statement
+  for (const statement of tree) {
+    js += getStatementCode(statement) + '\n';
   }
   return js;
 }
