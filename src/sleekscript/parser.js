@@ -2,6 +2,12 @@
 function getStatementType(statement) {
   if (!statement.length) return 'empty';
   switch (statement[0].type) {
+    case 'assignment': return `unexpected ${statement[0].value}`
+    case 'word': {
+      if (statement.length < 3) return 'unfinished statement';
+      if (statement[1].type !== 'assignment') return `unexpected ${statement[1].value}`;
+      return 'assignment';
+    }
     default: return 'unknown';
   }
 }
@@ -11,6 +17,8 @@ function getStatementCode(statement) {
   // get node type
   const type = getStatementType(statement);
   switch (type) {
+    case 'empty': return '';
+    case 'assignment': return `${statement.map(token => token.value).join(' ')};`
     default: return `// error: ${type}`;
   }
 }
