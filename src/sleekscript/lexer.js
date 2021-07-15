@@ -1,6 +1,7 @@
 // possible tokens to match ordered by precedence
 const possibleTokens = [
   { type: 'comment', regex: /#.*/},
+  { type: 'keyword', regex: /(is|isnt|and|or|not)(?=([^\w]|$))/ },
   { type: 'string', regex: /"([^"\\]|\\.)*"/ },
   { type: 'number', regex: /\d*\.?\d+/ },
   { type: 'word', regex: /[_A-Za-z]\w*/ },

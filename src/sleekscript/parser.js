@@ -1,3 +1,4 @@
+// returns value for given string of tokens
 function getValue(tokens) {
   // validate tokens
   for (const token of tokens) {
@@ -8,8 +9,22 @@ function getValue(tokens) {
   // format tokens
   let value = '';
   for (const token of tokens) {
-    if (value !== '' && token.value !== ')' && value[value.length - 1] !== '(') value += ' ';
-    value += token.value;
+    // parse whitespace
+    if (
+      value !== '' && token.value !== ')' && value[value.length - 1] !== '('
+      && value[value.length - 1] !== '!'
+    ) value += ' ';
+    // parse keywords
+    if (token.type === 'keyword') {
+      switch (token.value) {
+        case 'is': value += '==='; break;
+        case 'isnt': value += '!=='; break;
+        case 'and': value += '&&'; break;
+        case 'or': value += '||'; break;
+        case 'not': value += '!'; break;
+        default: break;
+      }
+    } else value += token.value;
   }
   return value;
 }
