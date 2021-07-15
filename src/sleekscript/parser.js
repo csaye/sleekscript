@@ -2,6 +2,7 @@
 function getStatementType(statement) {
   if (!statement.length) return 'empty';
   switch (statement[0].type) {
+    case 'comment': return 'comment';
     case 'assignment': return `unexpected ${statement[0].value}`
     case 'word': {
       if (statement.length < 3) return 'unfinished statement';
@@ -18,6 +19,7 @@ function getStatementCode(statement) {
   const type = getStatementType(statement);
   switch (type) {
     case 'empty': return '';
+    case 'comment': return `//${statement[0].value.slice(1)}`;
     case 'assignment': return `${statement.map(token => token.value).join(' ')};`
     default: return `// error: ${type}`;
   }
