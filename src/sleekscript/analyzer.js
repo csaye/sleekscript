@@ -16,6 +16,5 @@ export default function analyze(tokens) {
     else statement.push(token);
   }
   if (statement.length) tree.push(statement);
-  console.log(tree);
   return tree;
 }
