@@ -1,15 +1,13 @@
 // possible tokens to match ordered by precedence
 const possibleTokens = [
-  { type: 'comment', regex: /(?<=#).*/},
-  { type: 'keyword', regex: /(is|isnt|and|or|not)(?=([^\w]|$))/},
+  { type: 'comment', regex: /#.*/},
   { type: 'string', regex: /"([^"\\]|\\.)*"/ },
-  { type: 'slice', regex: /\[\w*:\w*\]/ },
-  { type: 'range', regex: /\[\w*\.\.\w*\]/ },
   { type: 'number', regex: /\d*\.?\d+/ },
   { type: 'word', regex: /[_A-Za-z]\w*/ },
-  { type: 'operator', regex: /(===|&&|\|\||\*\*|[-+/*%<>=]=|[-+/*%<>=])/ },
-  { type: 'symbol', regex: /[?:{}();,.![\]]/ },
-  { type: 'newline', regex: /\n/ }
+  { type: 'assignment', regex: /[-+/*%]=|=/ },
+  { type: 'parentheses', regex: /[()]/ },
+  { type: 'operator', regex: /[-+/*%]/ },
+  { type: 'separator', regex: /[\n;]/ }
 ];
 
 // recursively retrieves tokens from given code
