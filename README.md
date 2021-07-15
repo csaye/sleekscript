@@ -2,6 +2,20 @@
 
 A pythonic language that compiles to JavaScript.
 
+## About
+
+SleekScript compiles code into tokens, tokens into statements, and statements into JavaScript code. Statements are separated by a newline or a semicolon.
+
+## Keywords
+
+`is` -> `===`<br />
+`isnt` -> `!==`<br />
+`and` -> `&&`<br />
+`or` -> `||`<br />
+`not` -> `!`
+
+`a = b and c or not d` -> `a = b && c || !d;`
+
 ## Available Scripts
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
