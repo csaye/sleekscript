@@ -2,19 +2,19 @@
 export default function analyze(tokens) {
   const tree = [];
   let statement = [];
+  // for each token
   for (const token of tokens) {
-    // if separator, close statement
+    // if separator and statement, close statement
     if (token.type === 'separator') {
-      if (statement.length) tree.push(statement);
-      statement = [];
-    // if comment, close statement
-    } else if (token.type === 'comment') {
-      if (statement.length) tree.push(statement);
-      tree.push([token]);
-      statement = [];
+      if (statement.length) {
+        tree.push(statement);
+        statement = [];
+      }
     }
+    // if not separator, push token
     else statement.push(token);
   }
+  // append trailing statement and return tree
   if (statement.length) tree.push(statement);
   return tree;
 }
