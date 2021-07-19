@@ -4,6 +4,8 @@ let code = undefined;
 let tokens = [];
 
 // preset types
+const separators = [';', '\n'];
+const symbols = ['(', ')', '+', '-', '*', '/', '%', '=', '!'];
 const keywords = ['and', 'or', 'is', 'isnt', 'not', 'yes', 'no', 'on', 'off'];
 
 // reads comment token to newline
@@ -84,6 +86,8 @@ function processChar(char) {
   else if (char === '"') readString();
   else if (char.match(/[a-zA-Z_]/)) readWord();
   else if (char.match(/[0-9]/)) readNumber();
+  else if (separators.includes(char)) tokens.push({ type: 'separator', value: char });
+  else if (symbols.includes(char)) tokens.push({ type: 'symbol', value: char });
 }
 
 // lexes given sleekscript into tokens
