@@ -6,6 +6,7 @@ let code = '';
 // processes given token in javascript context
 function processToken(token) {
   if (token.type === 'comment') code += `//${token.value}`;
+  else if (token.type === 'string') code += `"${token.value}"`;
 }
 
 // returns code for given statement

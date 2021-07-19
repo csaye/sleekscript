@@ -22,9 +22,26 @@ function readComment() {
   tokens.push({ type: 'comment', value: comment });
 }
 
+// reads string to end quote
+function readString() {
+  let string = '';
+  index += 1;
+  // read to end of code
+  while (index < code.length) {
+    // break if unescaped close quote
+    if (code[index] === '"' && code[index - 1] !== '\\') break;
+    // append char to string
+    string += code[index];
+    index += 1;
+  }
+  // push string token
+  tokens.push({ type: 'string', value: string });
+}
+
 // processes given character in token context
 function processChar(char) {
   if (char === '#') readComment();
+  else if (char === '"') readString();
 }
 
 // lexes given sleekscript into tokens
