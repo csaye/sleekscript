@@ -60,11 +60,30 @@ function readWord() {
   else tokens.push({ type: 'word', value: word });
 }
 
+// reads number to nonnumeric character
+function readNumber() {
+  let number = '';
+  // read to end of code
+  while (index < code.length) {
+    // break if not numeric character
+    if (!code[index].match(/[0-9]/)) {
+      index -= 1;
+      break;
+    }
+    // append char to number
+    number += code[index];
+    index += 1;
+  }
+  // push number token
+  tokens.push({ type: 'number', value: number });
+}
+
 // processes given character in token context
 function processChar(char) {
   if (char === '#') readComment();
   else if (char === '"') readString();
   else if (char.match(/[a-zA-Z_]/)) readWord();
+  else if (char.match(/[0-9]/)) readNumber();
 }
 
 // lexes given sleekscript into tokens

@@ -25,6 +25,7 @@ function processToken(token) {
   else if (token.type === 'string') code += `"${token.value}"`;
   else if (token.type === 'keyword') code += getKeyword(token.value);
   else if (token.type === 'word') code += token.value;
+  else if (token.type === 'number') code += token.value;
 }
 
 // returns code for given statement
