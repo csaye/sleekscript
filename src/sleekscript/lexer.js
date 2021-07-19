@@ -3,6 +3,9 @@ let index = 0;
 let code = undefined;
 let tokens = [];
 
+// preset types
+const keywords = ['and', 'or', 'is', 'isnt', 'not', 'yes', 'no', 'on', 'off'];
+
 // reads comment token to newline
 function readComment() {
   let comment = '';
@@ -38,10 +41,30 @@ function readString() {
   tokens.push({ type: 'string', value: string });
 }
 
+// reads word to nonalphanumeric character
+function readWord() {
+  let word = '';
+  // read to end of code
+  while (index < code.length) {
+    // break if not alphanumeric character
+    if (!code[index].match(/\w/)) {
+      index -= 1;
+      break;
+    }
+    // append char to word
+    word += code[index];
+    index += 1;
+  }
+  // push keyword or word
+  if (keywords.includes(word)) tokens.push({ type: 'keyword', value: word });
+  else tokens.push({ type: 'word', value: word });
+}
+
 // processes given character in token context
 function processChar(char) {
   if (char === '#') readComment();
   else if (char === '"') readString();
+  else if (char.match(/[a-zA-Z_]/)) readWord();
 }
 
 // lexes given sleekscript into tokens

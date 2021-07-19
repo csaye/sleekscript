@@ -3,10 +3,28 @@ let index = 0;
 let statement = undefined;
 let code = '';
 
+// returns javascript version of given keyword
+function getKeyword(keyword) {
+  switch (keyword) {
+    case 'and': return '&&';
+    case 'or': return '||';
+    case 'is': return '===';
+    case 'isnt': return '!==';
+    case 'not': return '!';
+    case 'yes': return 'true';
+    case 'no': return 'false';
+    case 'on': return 'true';
+    case 'off': return 'false';
+    default: return keyword;
+  }
+}
+
 // processes given token in javascript context
 function processToken(token) {
   if (token.type === 'comment') code += `//${token.value}`;
   else if (token.type === 'string') code += `"${token.value}"`;
+  else if (token.type === 'keyword') code += getKeyword(token.value);
+  else if (token.type === 'word') code += token.value;
 }
 
 // returns code for given statement
