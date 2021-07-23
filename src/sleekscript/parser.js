@@ -74,13 +74,34 @@ function getStatementCode(inputStatement) {
   while (index < statement.length) {
     // pad token
     const token = statement[index];
-    if (index && doPad(token, statement[index - 1])) code += ' ';
+    if (index) {
+      if (token.type === 'comment') code += ';';
+      if (doPad(token, statement[index - 1])) code += ' ';
+    }
     // process token
     processToken(token);
     index += 1;
   }
+  // append semicolon if no comment
+  if (statement[statement.length - 1].type !== 'comment') code += ';';
   // return statement code
   return code;
+}
+
+// returns whether to newline given statement
+function doNewline(statement, prevStatement) {
+  // start of if statements
+  if (
+    statement[0].type === 'keyword' && statement[0].value === 'if' &&
+    !(prevStatement[0].type === 'keyword' && prevStatement[0].value === 'if')
+  ) return true;
+  // end of if statements
+  if (
+    !(statement[0].type === 'keyword' && statement[0].value === 'if') &&
+    prevStatement[0].type === 'keyword' && prevStatement[0].value === 'if'
+  ) return true;
+  // default to no newline
+  return false;
 }
 
 // parses given syntax tree into javascript
@@ -98,9 +119,13 @@ export default function parse(tree) {
   }
   if (varnames.length) js += `var ${varnames.join(', ')};\n\n`
   // for each statement in tree
-  for (const statement of tree) {
+  let treeIndex = 0;
+  while (treeIndex < tree.length) {
     // append statement code
-    js += getStatementCode(statement) + ';\n';
+    const statement = tree[treeIndex];
+    if (treeIndex && doNewline(statement, tree[treeIndex - 1])) js += '\n';
+    js += getStatementCode(statement) + '\n';
+    treeIndex += 1;
   }
   // return parsed javascript
   return js;
