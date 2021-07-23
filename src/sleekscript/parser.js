@@ -6,20 +6,29 @@ let code = '';
 // returns javascript version of given keyword
 function getKeyword(keyword) {
   switch (keyword) {
+    // operators
     case 'and': return '&&';
     case 'or': return '||';
     case 'is': return '===';
     case 'isnt': return '!==';
     case 'not': return '!';
-
+    // booleans
     case 'yes': return 'true';
     case 'no': return 'false';
     case 'on': return 'true';
     case 'off': return 'false';
-
-    case 'print': return 'console.log';
-
+    // default
     default: return keyword;
+  }
+}
+
+// returns javascript subtitution for given word
+function getSub(word) {
+  switch (word) {
+    // functions
+    case 'print': return 'console.log';
+    // default
+    default: return word;
   }
 }
 
@@ -28,19 +37,30 @@ function processToken(token) {
   if (token.type === 'comment') code += `//${token.value}`;
   else if (token.type === 'string') code += `"${token.value}"`;
   else if (token.type === 'keyword') code += getKeyword(token.value);
+  else if (token.type === 'sub') code += getSub(token.value);
   else code += token.value;
 }
 
 // returns whether to pad given token
 function doPad(token, prevToken) {
-  if (token.type === 'symbol' && prevToken.type !== 'operator') return false;
+  // operator after operator [++, -=]
   if (token.type === 'operator' && prevToken.type === 'operator') return false;
+  // symbol after non-operator [foo., bar)]
   if (
-    (prevToken.type === 'symbol' && prevToken.value !== ')') ||
-    (prevToken.type === 'keyword' && prevToken.value === 'not')
-  ) {
-    if (token.type !== 'operator') return false;
-  }
+    token.type === 'symbol'
+    && prevToken.type !== 'operator' && prevToken.type !== 'keyword'
+  ) return false;
+  // non-operator after symbol [.foo, (bar]
+  if (
+    prevToken.type === 'symbol' && prevToken.value !== ')'
+    && token.type !== 'operator'
+  ) return false;
+  // non-operator after not keyword [!foo]
+  if (
+    prevToken.type === 'keyword' && prevToken.value === 'not'
+    && token.type !== 'operator'
+  ) return false;
+  // if none pass, return true
   return true;
 }
 

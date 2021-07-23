@@ -9,9 +9,9 @@ const operators = [ '+', '-', '*', '/', '%', '='];
 const symbols = ['(', ')', '.', '!'];
 const keywords = [
   'and', 'or', 'is', 'isnt', 'not',
-  'yes', 'no', 'on', 'off',
-  'print'
+  'yes', 'no', 'on', 'off'
 ];
+const subs = ['print'];
 
 // reads comment token to newline
 function readComment() {
@@ -64,8 +64,9 @@ function readWord() {
   }
   // push word
   if (keywords.includes(word)) tokens.push({ type: 'keyword', value: word });
+  else if (subs.includes(word)) tokens.push({ type: 'sub', value: word });
   else if (word === 'if') {
-    tokens.push({ type: 'word', value: 'if ' });
+    tokens.push({ type: 'keyword', value: 'if' });
     tokens.push({ type: 'symbol', value: '(' });
   }
   else if (word === 'then') tokens.push({ type: 'symbol', value: ')' });
