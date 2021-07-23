@@ -11,10 +11,14 @@ function getKeyword(keyword) {
     case 'is': return '===';
     case 'isnt': return '!==';
     case 'not': return '!';
+
     case 'yes': return 'true';
     case 'no': return 'false';
     case 'on': return 'true';
     case 'off': return 'false';
+
+    case 'print': return 'console.log';
+
     default: return keyword;
   }
 }
@@ -24,9 +28,7 @@ function processToken(token) {
   if (token.type === 'comment') code += `//${token.value}`;
   else if (token.type === 'string') code += `"${token.value}"`;
   else if (token.type === 'keyword') code += getKeyword(token.value);
-  else if (token.type === 'word') code += token.value;
-  else if (token.type === 'number') code += token.value;
-  else if (token.type === 'symbol') code += token.value;
+  else code += token.value;
 }
 
 // returns code for given statement
