@@ -33,9 +33,8 @@ function processToken(token) {
 
 // returns whether to pad given token
 function doPad(token, prevToken) {
-  if (token.type === 'symbol') {
-    if (prevToken.type !== 'operator') return false;
-  }
+  if (token.type === 'symbol' && prevToken.type !== 'operator') return false;
+  if (token.type === 'operator' && prevToken.type === 'operator') return false;
   if (
     (prevToken.type === 'symbol' && prevToken.value !== ')') ||
     (prevToken.type === 'keyword' && prevToken.value === 'not')
@@ -67,6 +66,17 @@ function getStatementCode(inputStatement) {
 // parses given syntax tree into javascript
 export default function parse(tree) {
   let js = '';
+  const varnames = [];
+  // declare variables
+  for (const statement of tree) {
+    if (statement.length > 1) {
+       if (statement[0].type === 'word' && statement[1].type === 'operator') {
+         const varname = statement[0].value;
+         if (!varnames.includes(varname)) varnames.push(varname);
+      }
+    }
+  }
+  if (varnames.length) js += `var ${varnames.join(', ')};\n\n`
   // for each statement in tree
   for (const statement of tree) {
     // append statement code
