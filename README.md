@@ -1,5 +1,7 @@
 # SleekScript
 
+<img height="200px" src="https://user-images.githubusercontent.com/27871609/126735757-5df17ebc-2a3b-4625-bceb-65195ddd47b8.png">
+
 A pythonic language that compiles to JavaScript.
 
 SleekScript compiles code into tokens, tokens into statements, and statements into formatted JavaScript code.
