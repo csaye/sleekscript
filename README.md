@@ -13,11 +13,11 @@ SleekScript is inspired by [CoffeeScript](https://coffeescript.org).
 SleekScript statements are separated by a newline or a semicolon. The resulting JavaScript is automatically styled.
 
 <table>
-<tr><td>SleekScript</td><td>SleekScript</td><td>JavaScript</td></tr>
+<tr><td><b>SleekScript</b></td><td><b>SleekScript</b></td><td><b>JavaScript</b></td></tr>
 <tr>
 <td>
 
-```coffeescript
+```coffee
 1+1
 2+2
 3+3
@@ -25,7 +25,7 @@ SleekScript statements are separated by a newline or a semicolon. The resulting 
 </td>
 <td>
 
-```coffeescript
+```coffee
 1+1;2+2;3+3
 ```
 </td>
@@ -45,11 +45,11 @@ SleekScript statements are separated by a newline or a semicolon. The resulting 
 Variables are automatically defined in SleekScript.
 
 <table>
-<tr><td>SleekScript</td><td>JavaScript</td></tr>
+<tr><td><b>SleekScript</b></td><td><b>JavaScript</b></td></tr>
 <tr>
 <td>
 
-```coffeescript
+```coffee
 a = 0
 b = a
 ```
@@ -86,11 +86,11 @@ Certain keywords are included in order to create more intuitive operator sequenc
 If statements can be written in the form `if x then y`.
 
 <table>
-<tr><td>SleekScript</td><td>JavaScript</td></tr>
+<tr><td><b>SleekScript</b></td><td><b>JavaScript</b></td></tr>
 <tr>
 <td>
 
-```coffeescript
+```coffee
 if a is b then print("a is b")
 ```
 </td>
@@ -98,6 +98,46 @@ if a is b then print("a is b")
 
 ```js
 if (a === b) console.log("a is b");
+```      
+</td>
+</tr>
+</table>
+
+## Example
+
+<table>
+<tr><td><b>SleekScript</b></td><td><b>JavaScript</b></td></tr>
+<tr>
+<td>
+
+```coffee
+a = yes # var a
+b = a # var b
+c = no # var c
+
+if a is b then print("a is b")
+if b isnt c then print("b is not c")
+if a is b or a is c then print("a is b or c")
+
+# print result
+print(a and b and c)
+```
+</td>
+<td>
+
+```js
+var a, b, c;
+
+a = true; // var a
+b = a; // var b
+c = false; // var c
+
+if (a === b) console.log("a is b");
+if (b !== c) console.log("b is not c");
+if (a === b || a === c) console.log("a is b or c");
+
+// print result
+console.log(a && b && c);
 ```      
 </td>
 </tr>
