@@ -2,19 +2,104 @@
 
 A pythonic language that compiles to JavaScript.
 
-## About
+SleekScript compiles code into tokens, tokens into statements, and statements into formatted JavaScript code.
 
-SleekScript compiles code into tokens, tokens into statements, and statements into JavaScript code. Statements are separated by a newline or a semicolon.
+SleekScript is inspired by [CoffeeScript](https://coffeescript.org).
+
+## Statements
+
+SleekScript statements are separated by a newline or a semicolon. The resulting JavaScript is automatically styled.
+
+<table>
+<tr><td>SleekScript</td><td>SleekScript</td><td>JavaScript</td></tr>
+<tr>
+<td>
+
+```coffeescript
+1+1
+2+2
+3+3
+```
+</td>
+<td>
+
+```coffeescript
+1+1;2+2;3+3
+```
+</td>
+<td>
+
+```js
+1 + 1;
+2 + 2;
+3 + 3;
+```
+</td>
+</tr>
+</table>
+
+## Variable Declarations
+
+Variables are automatically defined in SleekScript.
+
+<table>
+<tr><td>SleekScript</td><td>JavaScript</td></tr>
+<tr>
+<td>
+
+```coffeescript
+a = 0
+b = a
+```
+</td>
+<td>
+
+```js
+var a, b;
+
+a = 0;
+b = a;
+```      
+</td>
+</tr>
+</table>
 
 ## Keywords
 
-`is` -> `===`<br />
-`isnt` -> `!==`<br />
-`and` -> `&&`<br />
-`or` -> `||`<br />
-`not` -> `!`
+Certain keywords are included in order to create more intuitive operator sequences.
 
-`a = b and c or not d` -> `a = b && c || !d;`
+|SleekScript|JavaScript|
+|---|---|
+|`is`|`===`|
+|`isnt`|`!==`|
+|`and`|`&&`|
+|`or`|`\|\|`|
+|`not`|`!`|
+|`yes` `on`|`true`|
+|`no` `off`|`false`|
+|`print`|`console.log`|
+
+## If Statements
+
+If statements can be written in the form `if x then y`.
+
+<table>
+<tr><td>SleekScript</td><td>JavaScript</td></tr>
+<tr>
+<td>
+
+```coffeescript
+if a is b then print("a is b")
+```
+</td>
+<td>
+
+```js
+if (a === b) console.log("a is b");
+```      
+</td>
+</tr>
+</table>
 
 ## Available Scripts
 
