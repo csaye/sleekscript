@@ -62,8 +62,13 @@ function readWord() {
     word += code[index];
     index += 1;
   }
-  // push keyword or word
+  // push word
   if (keywords.includes(word)) tokens.push({ type: 'keyword', value: word });
+  else if (word === 'if') {
+    tokens.push({ type: 'word', value: 'if ' });
+    tokens.push({ type: 'symbol', value: '(' });
+  }
+  else if (word === 'then') tokens.push({ type: 'symbol', value: ')' });
   else tokens.push({ type: 'word', value: word });
 }
 

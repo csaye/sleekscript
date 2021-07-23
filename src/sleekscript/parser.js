@@ -31,6 +31,20 @@ function processToken(token) {
   else code += token.value;
 }
 
+// returns whether to pad given token
+function doPad(token, prevToken) {
+  if (token.type === 'symbol') {
+    if (prevToken.type !== 'operator') return false;
+  }
+  if (
+    (prevToken.type === 'symbol' && prevToken.value !== ')') ||
+    (prevToken.type === 'keyword' && prevToken.value === 'not')
+  ) {
+    if (token.type !== 'operator') return false;
+  }
+  return true;
+}
+
 // returns code for given statement
 function getStatementCode(inputStatement) {
   // set globals
@@ -39,8 +53,10 @@ function getStatementCode(inputStatement) {
   code = '';
   // read to end of statement
   while (index < statement.length) {
-    // process token
+    // pad token
     const token = statement[index];
+    if (index && doPad(token, statement[index - 1])) code += ' ';
+    // process token
     processToken(token);
     index += 1;
   }
@@ -54,7 +70,7 @@ export default function parse(tree) {
   // for each statement in tree
   for (const statement of tree) {
     // append statement code
-    js += getStatementCode(statement) + '\n';
+    js += getStatementCode(statement) + ';\n';
   }
   // return parsed javascript
   return js;
