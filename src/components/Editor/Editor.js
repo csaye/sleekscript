@@ -8,10 +8,25 @@ import { compile } from '../../sleekscript/compiler.js';
 
 import styles from './Editor.module.css';
 
+// delay in milliseconds for compiling
 const compileDelay = 0;
 
+// default code to be displayed
+const defaultCode =
+`a = yes # var a
+b = a # var b
+c = no # var c
+
+if a is b then print("a is b")
+if b isnt c then print("b is not c")
+if a is b or a is c then print("a is b or c")
+
+# print result
+print(a and b and c)
+`;
+
 export default function Editor() {
-  const [inCode, setInCode] = useState('');
+  const [inCode, setInCode] = useState(defaultCode);
   const [outCode, setOutCode] = useState('');
 
   // compile code when updated
