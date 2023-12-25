@@ -1,14 +1,14 @@
 # SleekScript
 
 <p>
-  <a href="https://csaye.com/sleekscript">
+  <a href="https://sleekscript.vercel.app">
     <img height="200px" src="https://user-images.githubusercontent.com/27871609/126735757-5df17ebc-2a3b-4625-bceb-65195ddd47b8.png">
   </a>
 </p>
 
 A pythonic language that compiles to JavaScript.
 
-Try it here: [csaye.com/sleekscript](https://csaye.com/sleekscript).
+Try it here: [sleekscript.vercel.app](https://sleekscript.vercel.app).
 
 SleekScript is inspired by [CoffeeScript](https://coffeescript.org).
 
